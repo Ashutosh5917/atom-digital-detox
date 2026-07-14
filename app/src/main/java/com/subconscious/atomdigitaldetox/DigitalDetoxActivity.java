@@ -81,7 +81,6 @@ public class DigitalDetoxActivity extends AppCompatActivity {
                 setupHeader(s);
             }
         });
-        getApplication().registerActivityLifecycleCallbacks(new ActivityLifecycleCallback());
     }
 
     private String loadFragment() {
@@ -218,10 +217,12 @@ public class DigitalDetoxActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        detoxFragmentType = (DetoxFragmentType) getIntent().getSerializableExtra(FRAGMENT_TYPE);
-        if (detoxFragmentType == null) detoxFragmentType = DetoxFragmentType.SETTINGS;
-        String content = "{\"taskId\":\"qwertyuiop\",\"flow\":{\"$start\":{\"type\":\"timerInput\",\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"“Your future is created by what you can do today, not tomorrow”\",\"imageUri\":\"ic_grown_tree\",\"durationMinutes\":5,\"backgroundImageUri\":\"tree_land_blue_border\",\"action\":{\"type\":\"button\",\"label\":\"Start the Detox!\",\"next\":\"timer_1\"}}},\"timer_1\":{\"type\":\"timer\",\"hideCancelButton\":true,\"hideBackButton\":true,\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"“Your future is created by what you can do today, not tomorrow”\",\"imageUri\":\"ic_sapling\",\"backgroundImageUri\":\"tree_land_blue_border\",\"play\":true,\"durationMinutes\":5,\"onComplete\":{\"markCompletion\":true,\"next\":\"timer_3\"},\"action\":{\"showAlertDialog\":true,\"type\":\"Text\",\"label\":\"Give Up\",\"next\":\"timer_2\"}}},\"timer_2\":{\"type\":\"result\",\"hideBackButton\":true,\"hideCancelButton\":true,\"data\":{\"title\":\"\",\"header\":\"Uh oh, your tree has withered\",\"headerTextSize\":25,\"imageUri\":\"ic_meditation_tree_withered\",\"imageDescription\":\"Meditation is hard. Remember, embrace failure and don’t let it stop you from trying again\",\"backgroundImageUri\":\"tree_land_red_border\",\"end\":{\"type\":\"button\",\"label\":\"Try Again\",\"next\":\"timer_1\"},\"action\":{\"type\":\"button\",\"label\":\"Finish\",\"next\":\"$finish\"}}},\"timer_3\":{\"type\":\"result\",\"hideCancelButton\":true,\"hideBackButton\":true,\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"Congratulations !\",\"headerTextSize\":25,\"imageUri\":\"ic_grown_tree\",\"imageDescription\":\"Congratulations, you have successfully completed your meditation and a tree has grown !\",\"backgroundImageUri\":\"tree_land_green_border\",\"action\":{\"type\":\"button\",\"label\":\"Finish\",\"next\":\"$finish\"}}}}}";
-        init(content);
+        if (fragments.isEmpty()) {
+            detoxFragmentType = (DetoxFragmentType) getIntent().getSerializableExtra(FRAGMENT_TYPE);
+            if (detoxFragmentType == null) detoxFragmentType = DetoxFragmentType.SETTINGS;
+            String content = "{\"taskId\":\"qwertyuiop\",\"flow\":{\"$start\":{\"type\":\"timerInput\",\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"“Your future is created by what you can do today, not tomorrow”\",\"imageUri\":\"ic_grown_tree\",\"durationMinutes\":5,\"backgroundImageUri\":\"tree_land_blue_border\",\"action\":{\"type\":\"button\",\"label\":\"Start the Detox!\",\"next\":\"timer_1\"}}},\"timer_1\":{\"type\":\"timer\",\"hideCancelButton\":true,\"hideBackButton\":true,\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"“Your future is created by what you can do today, not tomorrow”\",\"imageUri\":\"ic_sapling\",\"backgroundImageUri\":\"tree_land_blue_border\",\"play\":true,\"durationMinutes\":5,\"onComplete\":{\"markCompletion\":true,\"next\":\"timer_3\"},\"action\":{\"showAlertDialog\":true,\"type\":\"Text\",\"label\":\"Give Up\",\"next\":\"timer_2\"}}},\"timer_2\":{\"type\":\"result\",\"hideBackButton\":true,\"hideCancelButton\":true,\"data\":{\"title\":\"\",\"header\":\"Uh oh, your tree has withered\",\"headerTextSize\":25,\"imageUri\":\"ic_meditation_tree_withered\",\"imageDescription\":\"Meditation is hard. Remember, embrace failure and don’t let it stop you from trying again\",\"backgroundImageUri\":\"tree_land_red_border\",\"end\":{\"type\":\"button\",\"label\":\"Try Again\",\"next\":\"timer_1\"},\"action\":{\"type\":\"button\",\"label\":\"Finish\",\"next\":\"$finish\"}}},\"timer_3\":{\"type\":\"result\",\"hideCancelButton\":true,\"hideBackButton\":true,\"data\":{\"title\":\"Mindful Breathing\",\"header\":\"Congratulations !\",\"headerTextSize\":25,\"imageUri\":\"ic_grown_tree\",\"imageDescription\":\"Congratulations, you have successfully completed your meditation and a tree has grown !\",\"backgroundImageUri\":\"tree_land_green_border\",\"action\":{\"type\":\"button\",\"label\":\"Finish\",\"next\":\"$finish\"}}}}}";
+            init(content);
+        }
     }
 
     @Override

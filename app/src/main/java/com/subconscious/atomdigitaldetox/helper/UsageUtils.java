@@ -48,7 +48,11 @@ public class UsageUtils {
                 topPackageName = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
                 if (!Utils.isApplicationInForeground(context, appPackage) && topPackageName.equals(appPackage)) {
                     mySortedMap.remove(mySortedMap.lastKey());
-                    topPackageName = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                    if (!mySortedMap.isEmpty()) {
+                        topPackageName = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                    } else {
+                        topPackageName = "null";
+                    }
                 }
             }
         }
@@ -60,7 +64,10 @@ public class UsageUtils {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return defaultLauncher.activityInfo.packageName;
+        if (defaultLauncher != null && defaultLauncher.activityInfo != null) {
+            return defaultLauncher.activityInfo.packageName;
+        }
+        return "null";
     }
 
 }
